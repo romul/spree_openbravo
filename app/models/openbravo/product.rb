@@ -7,11 +7,12 @@ module Openbravo
   class Product < Base
     self.element_name = "Product"
     self.collection_name = "Product"
+    validates :name, :searchKey, :presence => true
 
     def encode(options={})
       xml_str = to_xml(:skip_instruct => true) do |xml|
         xml.productCategory nil, 'id' => "8A64B71A2B0B2946012B0BB9547C008E" # taxon
-        xml.organization    nil, 'id' => "B9C7088AB859483A9B1FB342AC2BE17A"
+        xml.organization    nil, 'id' => Spree::Openbravo::Config[:organization_id]
         xml.taxCategory     nil, 'id' => "9C17076DA7754B7AA7ED1803CCC9EC4E"
         xml.uOM             nil, 'id' => '100' # Unit
         xml.productType "I" # Item

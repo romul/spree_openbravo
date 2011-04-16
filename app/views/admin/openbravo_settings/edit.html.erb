@@ -1,0 +1,20 @@
+<%= render :partial => 'admin/shared/configuration_menu' %>
+
+<h1><%= t('openbravo.settings') %></h1>
+
+<%= form_tag(admin_openbravo_settings_path, :method => :put) do %>
+  <p>
+	  <label><%= t("openbravo.url") %></label>
+	  <%= text_field_tag('preferences[url]', Spree::Openbravo::Config[:url]) %>
+  </p>
+  <p>
+	  <label><%= t('openbravo.organization') %></label>
+	  <%= select_tag('preferences[organization_id]', 
+	        options_for_select(@organizations, Spree::Openbravo::Config[:organization_id])) %>
+  </p>
+
+  <p class="form-buttons">
+    <%= button t('update') %>
+    <%= t("or") %> <%= link_to t("cancel"), admin_openbravo_settings_url %>
+  </p>
+<% end %>
