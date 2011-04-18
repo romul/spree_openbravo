@@ -4,10 +4,14 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
     @organizations = Rails.cache.fetch('openbravo-organizations-list') do
       Openbravo::Organization.all.map{|org| [org.identifier, org.id].flatten.uniq }
     end
+    
+    @tax_categories = Rails.cache.fetch('openbravo-tax-categories') do
+      Openbravo::TaxCategory.all.map{|cat| [cat.name, cat.id].flatten.uniq }
+    end
   end
 
   def update
-    Spree::Config.set(params[:preferences])
+    Spree::Openbravo::Config.set(params[:preferences])
     
     respond_to do |format|
       format.html {

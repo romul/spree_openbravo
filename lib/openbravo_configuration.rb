@@ -4,5 +4,6 @@ class OpenbravoConfiguration < Configuration
   preference :password, :password, :default => "openbravo"
   
   preference :organization_id, :string, :default => "0"
-  preference :default_tax_category_id, :string
+  # NOTE: taxCategory belongs to organization, so you should select taxCategory related to organization, selected above
+  preference :tax_category_id, :string
 end

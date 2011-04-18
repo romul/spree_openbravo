@@ -10,11 +10,11 @@ module Openbravo
         xml.searchKey self.name
         xml.plannedMargin '0' # I don't know why.. but this field is required
       end
-      puts xml_str 
+
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
       "<ob:Openbravo xmlns:ob=\"http://www.openbravo.com\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
       xml_str +
       "</ob:Openbravo>"
-    end  
+    end
   end
 end

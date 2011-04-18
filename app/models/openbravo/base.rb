@@ -3,7 +3,13 @@ class Openbravo::Base < ActiveResource::Base
   self.site = Spree::Openbravo::Config[:url]
   self.user = Spree::Openbravo::Config[:user]
   self.password = Spree::Openbravo::Config[:password]
-
+  
+  
+  def id
+    res = super
+    res.kind_of?(Array) ? res[0] : res
+  end
+  
   class << self 
     # override method to avoid .xml in URL
     def element_path(id, prefix_options = {}, query_options = nil)
@@ -20,7 +26,12 @@ class Openbravo::Base < ActiveResource::Base
     protected
     
     def instantiate_collection(collection, prefix_options = {})
-      collection[self.collection_name].collect! { |record| instantiate_record(record, prefix_options) }
+      res = collection[self.collection_name]
+      if res.kind_of?(Array)
+        res.collect! { |record| instantiate_record(record, prefix_options) }
+      else
+        res ? instantiate_record(res, prefix_options) : []
+      end
     end
   end
 end

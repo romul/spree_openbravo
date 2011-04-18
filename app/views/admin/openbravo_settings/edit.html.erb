@@ -4,15 +4,20 @@
 
 <%= form_tag(admin_openbravo_settings_path, :method => :put) do %>
   <p>
-	  <label><%= t("openbravo.url") %></label>
-	  <%= text_field_tag('preferences[url]', Spree::Openbravo::Config[:url]) %>
+    <label><%= t("openbravo.url") %></label>
+    <%= text_field_tag('preferences[url]', Spree::Openbravo::Config[:url]) %>
   </p>
   <p>
-	  <label><%= t('openbravo.organization') %></label>
-	  <%= select_tag('preferences[organization_id]', 
-	        options_for_select(@organizations, Spree::Openbravo::Config[:organization_id])) %>
+    <label><%= t('openbravo.organization') %></label>
+    <%= select_tag('preferences[organization_id]', 
+          options_for_select(@organizations, Spree::Openbravo::Config[:organization_id])) %>
   </p>
-
+  <p>
+    <label><%= t('openbravo.tax_category') %></label>
+    <%= select_tag('preferences[tax_category_id]', 
+          options_for_select(@tax_categories, Spree::Openbravo::Config[:tax_category_id])) %>
+  </p>
+  
   <p class="form-buttons">
     <%= button t('update') %>
     <%= t("or") %> <%= link_to t("cancel"), admin_openbravo_settings_url %>
