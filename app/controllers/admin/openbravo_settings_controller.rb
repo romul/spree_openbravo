@@ -8,6 +8,10 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
     @tax_categories = Rails.cache.fetch('openbravo-tax-categories') do
       Openbravo::TaxCategory.all.map{|cat| [cat.name, cat.id].flatten.uniq }
     end
+    
+    @price_lists = Rails.cache.fetch('openbravo-price-lists') do
+      Openbravo::PriceList.all.map{|list| [list.name, list.id].flatten.uniq }
+    end
   end
 
   def update

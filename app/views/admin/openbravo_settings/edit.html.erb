@@ -4,18 +4,23 @@
 
 <%= form_tag(admin_openbravo_settings_path, :method => :put) do %>
   <p>
-    <label><%= t("openbravo.url") %></label>
+    <label><%= t("openbravo.url") %></label><br />
     <%= text_field_tag('preferences[url]', Spree::Openbravo::Config[:url]) %>
   </p>
   <p>
-    <label><%= t('openbravo.organization') %></label>
+    <label><%= t('openbravo.organization') %></label><br />
     <%= select_tag('preferences[organization_id]', 
           options_for_select(@organizations, Spree::Openbravo::Config[:organization_id])) %>
   </p>
   <p>
-    <label><%= t('openbravo.tax_category') %></label>
+    <label><%= t('openbravo.tax_category') %></label><br />
     <%= select_tag('preferences[tax_category_id]', 
           options_for_select(@tax_categories, Spree::Openbravo::Config[:tax_category_id])) %>
+  </p>
+  <p>
+    <label><%= t('openbravo.price_list') %></label><br />
+    <%= select_tag('preferences[price_list_id]', 
+          options_for_select(@price_lists, Spree::Openbravo::Config[:price_list_id])) %>
   </p>
   
   <p class="form-buttons">
