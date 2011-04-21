@@ -12,6 +12,10 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
     @price_lists = Rails.cache.fetch('openbravo-price-lists') do
       Openbravo::PriceList.all.map{|list| [list.name, list.id].flatten.uniq }
     end
+    
+    @bp_categories = Rails.cache.fetch('openbravo-bp-categories') do
+      Openbravo::BusinessPartnerCategory.all.map{|cat| [cat.name, cat.id].flatten.uniq }
+    end
   end
 
   def update

@@ -7,4 +7,5 @@ class OpenbravoConfiguration < Configuration
   # NOTE: taxCategory belongs to organization, so you should select taxCategory related to organization, selected above
   preference :tax_category_id, :string
   preference :price_list_id, :string
+  preference :customer_category_id, :string
 end

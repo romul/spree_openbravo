@@ -4,7 +4,6 @@ class Openbravo::Base < ActiveResource::Base
   self.user = Spree::Openbravo::Config[:user]
   self.password = Spree::Openbravo::Config[:password]
   
-  
   def id
     res = super
     res.kind_of?(Array) ? res[0] : res

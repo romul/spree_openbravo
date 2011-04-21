@@ -22,7 +22,12 @@
     <%= select_tag('preferences[price_list_id]', 
           options_for_select(@price_lists, Spree::Openbravo::Config[:price_list_id])) %>
   </p>
-  
+  <p>
+    <label><%= t('openbravo.customer_category') %></label><br />
+    <%= select_tag('preferences[customer_category_id]', 
+          options_for_select(@bp_categories, Spree::Openbravo::Config[:customer_category_id])) %>
+  </p>
+    
   <p class="form-buttons">
     <%= button t('update') %>
     <%= t("or") %> <%= link_to t("cancel"), admin_openbravo_settings_url %>
