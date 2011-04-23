@@ -8,4 +8,5 @@ class OpenbravoConfiguration < Configuration
   preference :tax_category_id, :string
   preference :price_list_id, :string
   preference :customer_category_id, :string
+  preference :order_transaction_document_id, :string
 end

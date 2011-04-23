@@ -16,6 +16,10 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
     @bp_categories = Rails.cache.fetch('openbravo-bp-categories') do
       Openbravo::BusinessPartnerCategory.all.map{|cat| [cat.name, cat.id].flatten.uniq }
     end
+    
+    @order_transaction_documents = Rails.cache.fetch('openbravo-order-transaction-documents') do
+      Openbravo::DocumentType.all(:params => {:where => "documentCategory='SOO'"}).map{|doc| [doc.name, doc.id].flatten.uniq }
+    end
   end
 
   def update
