@@ -9,4 +9,5 @@ class OpenbravoConfiguration < Configuration
   preference :price_list_id, :string
   preference :customer_category_id, :string
   preference :order_transaction_document_id, :string
+  preference :payment_term_id, :string
 end

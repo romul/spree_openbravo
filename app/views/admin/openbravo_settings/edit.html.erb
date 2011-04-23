@@ -31,7 +31,12 @@
     <label><%= t('openbravo.order_transaction_document') %></label><br />
     <%= select_tag('preferences[order_transaction_document_id]', 
           options_for_select(@order_transaction_documents, Spree::Openbravo::Config[:order_transaction_document_id])) %>
-  </p>    
+  </p>
+  <p>
+    <label><%= t('openbravo.payment_term') %></label><br />
+    <%= select_tag('preferences[payment_term_id]', 
+          options_for_select(@payment_terms, Spree::Openbravo::Config[:payment_term_id])) %>
+  </p>
   <p class="form-buttons">
     <%= button t('update') %>
     <%= t("or") %> <%= link_to t("cancel"), admin_openbravo_settings_url %>
