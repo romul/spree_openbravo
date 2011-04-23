@@ -12,17 +12,17 @@ module Openbravo
 
     def product_category_id
       return nil unless self.product_category
-      cat = Openbravo::ProductCategory.all(:params => {:where => "searchKey='#{self.product_category}'"})
+      cat = Openbravo::ProductCategory.last(:params => {:where => "searchKey='#{self.product_category}'"})
       return cat.id if cat.present?
       ProductCategory.create(:name => self.product_category)
-      Openbravo::ProductCategory.all(:params => {:where => "searchKey='#{self.product_category}'"}).id
+      Openbravo::ProductCategory.last(:params => {:where => "searchKey='#{self.product_category}'"}).id
     end
 
-    def encode(options={})
+    def to_xml(options={})
       product_category_id = self.product_category_id
       self.attributes.delete(:product_category)
       
-      xml_str = to_xml(:skip_instruct => true) do |xml|
+      super(options) do |xml|
         xml.productCategory nil, 'id' => product_category_id
         xml.organization    nil, 'id' => Spree::Openbravo::Config[:organization_id]
         xml.taxCategory     nil, 'id' => Spree::Openbravo::Config[:tax_category_id]
@@ -30,11 +30,6 @@ module Openbravo
         xml.productType "I" # Item
         # xml.searchKey "ROR-101" should be unique for each product
       end
-      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-      "<ob:Openbravo xmlns:ob=\"http://www.openbravo.com\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
-      xml_str +
-      "</ob:Openbravo>"
-    end    
-    
+    end
   end
 end

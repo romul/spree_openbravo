@@ -29,8 +29,16 @@ class Openbravo::Base < ActiveResource::Base
       if res.kind_of?(Array)
         res.collect! { |record| instantiate_record(record, prefix_options) }
       else
-        res ? instantiate_record(res, prefix_options) : []
+        res ? [instantiate_record(res, prefix_options)] : []
       end
     end
+  end
+  
+  def encode(options={})
+    xml_str = to_xml(:skip_instruct => true)
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    "<ob:Openbravo xmlns:ob=\"http://www.openbravo.com\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
+    xml_str +
+    "</ob:Openbravo>"
   end
 end
