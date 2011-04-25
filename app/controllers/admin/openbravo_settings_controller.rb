@@ -22,6 +22,7 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
     end
     
     @payment_terms = Openbravo::PaymentTerm.all.map{|term| [term.name, term.id] }
+    @warehouses = Openbravo::Warehouse.all.map{|wh| [wh.name, wh.id]}
   end
 
   def update

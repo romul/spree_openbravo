@@ -37,6 +37,11 @@
     <%= select_tag('preferences[payment_term_id]', 
           options_for_select(@payment_terms, Spree::Openbravo::Config[:payment_term_id])) %>
   </p>
+  <p>
+    <label><%= t('openbravo.warehouse') %></label><br />
+    <%= select_tag('preferences[warehouse_id]', 
+          options_for_select(@warehouses, Spree::Openbravo::Config[:warehouse_id])) %>
+  </p>
   <p class="form-buttons">
     <%= button t('update') %>
     <%= t("or") %> <%= link_to t("cancel"), admin_openbravo_settings_url %>

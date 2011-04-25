@@ -1,7 +1,6 @@
 module Openbravo
   class User < Base
-    self.element_name = "BusinessPartner"
-    self.collection_name = "BusinessPartner"
+    self.element_name = self.collection_name = "BusinessPartner"
     validates :name, :searchKey, :presence => true
     
     def self.create(user)
@@ -10,7 +9,7 @@ module Openbravo
         when "Updated":  response.updated
         when "Inserted": response.inserted
       end
-      result.attributes["BusinessPartner"]
+      result.attributes[element_name]
     end
     
     def to_xml(options={})

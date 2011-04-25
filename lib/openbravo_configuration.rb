@@ -10,4 +10,6 @@ class OpenbravoConfiguration < Configuration
   preference :customer_category_id, :string
   preference :order_transaction_document_id, :string
   preference :payment_term_id, :string
+  preference :currency_id, :string, :default => '100' # USD
+  preference :warehouse_id, :string
 end
