@@ -5,9 +5,12 @@ module Openbravo
     validates :name, :searchKey, :presence => true
     
     def self.create(user)
-      record = self.new(:searchKey => "SU/#{user.id}", :name => user.email)
-      record.save
-      Openbravo::User.first(:params => {:where => "searchKey='SU/#{user.id}'"})
+      response = super(:searchKey => "SU/#{user.id}", :name => user.email)
+      result = case response.log[/\w+/]
+        when "Updated":  response.updated
+        when "Inserted": response.inserted
+      end
+      result.attributes["BusinessPartner"]
     end
     
     def to_xml(options={})
