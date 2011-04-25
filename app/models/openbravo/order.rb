@@ -2,6 +2,7 @@ module Openbravo
   class Order < Base
     self.element_name = "Order"
     self.collection_name = "Order"
+    attr_accessor :business_partner_id
     
     def self.create(order)
       attributes = {
