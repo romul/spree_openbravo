@@ -5,6 +5,7 @@ module Openbravo
     attr_accessor :business_partner_id, :partner_address_id
     
     def self.create(order)
+      return false if Openbravo::Order.first(:params => {:where => "documentNo='#{order.number}'"})
       attributes = {
           :documentNo => order.number, 
           :orderDate  => order.completed_at.strftime("%Y-%m-%dT00:00:00.0Z"),
@@ -14,7 +15,9 @@ module Openbravo
       record = Openbravo::Order.new(attributes)
       record.business_partner_id = Openbravo::User.create(order.user).id
       record.partner_address_id  = Openbravo::BusinessPartnerLocation.create(order).id
-      record.save
+      res = record.save
+      order.line_items.each {|li| Openbravo::OrderLine.create(li) }
+      res
     end
     
     def to_xml(options={})

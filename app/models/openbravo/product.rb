@@ -12,7 +12,8 @@ module Openbravo
     validates :name, :searchKey, :product_category_id, :presence => true
 
     def self.create(product)
-      record = self.new(:name => product.name, :searchKey => "SP/#{product.permalink}")
+      return false if Openbravo::Product.last(:params => {:where => "searchKey='#{product.search_key}'"})
+      record = self.new(:name => product.name, :searchKey => product.search_key)
       product_category = product.taxons.first.try(:name) || "Spree"
       cat = Openbravo::ProductCategory.last(:params => {:where => "searchKey='#{product_category}'"})
       if cat.blank?
@@ -21,7 +22,7 @@ module Openbravo
       end
       record.product_category_id = cat.id
       res = record.save
-      Openbravo::Price.create(:product_search_key => "SP/#{product.permalink}", :standardPrice => product.cost_price || product.price, :listPrice => product.price)
+      Openbravo::Price.create(:product_search_key => product.search_key, :standardPrice => product.cost_price || product.price, :listPrice => product.price)
       res
     end
 

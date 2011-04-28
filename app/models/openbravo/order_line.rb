@@ -4,7 +4,7 @@ module Openbravo
     
     def self.create(line_item)
       order = Openbravo::Order.last(:params => {:where => "documentNo='#{line_item.order.number}'"})
-      product = Openbravo::Product.last(:params => {:where => "searchKey='SP/#{line_item.variant.product.permalink}'"})
+      product = Openbravo::Product.last(:params => {:where => "searchKey='#{line_item.variant.product.search_key}'"})
       
       attributes = {
           :order_id => order.id,
