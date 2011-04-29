@@ -1,0 +1,41 @@
+<%= render :partial => 'admin/shared/configuration_menu' %>
+
+<h1><%= t("openbravo.settings") %></h1>
+
+<table>
+  <tr>
+    <th scope="row"><%= t("openbravo.url") %>:</th>
+    <td><%= Spree::Openbravo::Config[:url] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t("openbravo.organization_id") %>:</th>
+    <td><%= Spree::Openbravo::Config[:organization_id] %></td>
+  </tr>
+  <tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.tax_category_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:tax_category_id] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.price_list_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:price_list_id] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.customer_category_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:customer_category_id] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.order_transaction_document_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:order_transaction_document_id] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.payment_term_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:payment_term_id] %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t('openbravo.warehouse_id') %>:</th>
+    <td><%= Spree::Openbravo::Config[:warehouse_id] %></td>
+  </tr>
+</table>
+
+<p><%= link_to_with_icon 'edit', t("edit"), edit_admin_openbravo_settings_path, :id => 'admin_openbravo_settings_link' %></p>
