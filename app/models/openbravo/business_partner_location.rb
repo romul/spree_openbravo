@@ -2,9 +2,9 @@ module Openbravo
   class BusinessPartnerLocation < Base
     self.element_name = self.collection_name = "BusinessPartnerLocation"
     
-    def self.create(order)
-      response = super(:location_address_id => Openbravo::Address.create(order.ship_address).id,
-            :business_partner_id => Openbravo::User.first(:params => {:where => "searchKey = 'SU/#{order.user.id}'"}).id)
+    def self.create(address, user_id)
+      response = super(:location_address_id => Openbravo::Address.create(address).id,
+            :business_partner_id => Openbravo::User.first(:params => {:where => "searchKey = 'SU/#{user_id}'"}).id)
       result = case response.log[/\w+/]
         when "Updated":  response.updated
         when "Inserted": response.inserted
