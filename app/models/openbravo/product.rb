@@ -15,15 +15,21 @@ module Openbravo
       return false if Openbravo::Product.last(:params => {:where => "searchKey='#{product.search_key}'"})
       record = self.new(:name => product.name, :searchKey => product.search_key)
       product_category = product.taxons.first.try(:name) || "Spree"
-      cat = Openbravo::ProductCategory.last(:params => {:where => "searchKey='#{product_category}'"})
-      if cat.blank?
-        ProductCategory.create(:name => product_category)
-        cat = Openbravo::ProductCategory.last(:params => {:where => "searchKey='#{product_category}'"})
-      end
+      cat = ProductCategory.create(:name => product_category, :searchKey => product_category)
       record.product_category_id = cat.id
       res = record.save
       Openbravo::Price.create(:product_search_key => product.search_key, :standardPrice => product.cost_price || product.price, :listPrice => product.price)
       res
+    end
+    
+    def self.find_or_create_by_hash(options)
+      p = Openbravo::Product.last(:params => {:where => "searchKey='#{options[:searchKey]}'"})
+      return p if p
+      cat = Openbravo::ProductCategory.create(:name => "Spree", :searchKey => "Spree")
+      record = Openbravo::Product.new(options)
+      record.product_category_id = cat.id
+      record.save
+      Openbravo::Product.last(:params => {:where => "searchKey='#{options[:searchKey]}'"})
     end
 
     def to_xml(options={})

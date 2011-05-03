@@ -23,6 +23,7 @@ module Openbravo
       end
       res = record.save
       order.line_items.each {|li| Openbravo::OrderLine.create(li) }
+      create_adjustments(order)
       res
     end
     
@@ -47,6 +48,13 @@ module Openbravo
         xml.accountingDate self.orderDate
         xml.salesTransaction true
       end
+    end
+    
+    private
+    
+    def self.create_adjustments(order)
+      order.adjustments.shipping.each{|adjustment| Openbravo::OrderLine.create_for_adjustment(adjustment)}
+      order.promotion_credits.each{|creadit| Openbravo::OrderLine.create_for_adjustment(credit)}
     end
   end
 end

@@ -22,6 +22,25 @@ module Openbravo
       super(attributes)
     end
     
+    def self.create_for_adjustment(adjustment)
+      order = Openbravo::Order.last(:params => {:where => "documentNo='#{adjustment.order.number}'"})
+      product_name = adjustment.source_type
+      product = Openbravo::Product.find_or_create_by_hash(:name => product_name, :searchKey => "Spree/#{product_name}")     
+      attributes = {
+          :order_id => order.id,
+          :product_id => product.id,
+          :orderedQuantity => 1,
+          :reservedQuantity => 0,
+          :deliveredQuantity => 0,
+          :invoicedQuantity => 1,
+          :unitPrice => adjustment.amount,
+          :listPrice => adjustment.amount,
+          :description => adjustment.label,
+          :orderDate => adjustment.order.completed_at.strftime("%Y-%m-%dT00:00:00.0Z"),
+      }
+      Openbravo::OrderLine.new(attributes).save
+    end
+    
     def to_xml(options={})
       order_id = self.attributes.delete(:order_id)
       product_id = self.attributes.delete(:product_id)
