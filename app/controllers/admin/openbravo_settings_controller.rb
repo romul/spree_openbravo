@@ -9,6 +9,10 @@ class Admin::OpenbravoSettingsController < Admin::BaseController
       Openbravo::TaxCategory.all.map{|cat| [cat.name, cat.id] }
     end
     
+    @tax_rates = Rails.cache.fetch('openbravo-tax-rates') do
+      Openbravo::TaxRate.all.map{|tax| [tax.name, tax.id] }
+    end
+    
     @price_lists = Rails.cache.fetch('openbravo-price-lists') do
       Openbravo::PriceList.all.map{|list| [list.name, list.id] }
     end

@@ -32,7 +32,7 @@ module Openbravo
         xml.warehouse nil, :id => Spree::Openbravo::Config[:warehouse_id]
         xml.currency nil, :id => Spree::Openbravo::Config[:currency_id]
         xml.uOM nil, 'id' => '100' # Unit
-        xml.tax nil, 'id' => '1FE610D3A8844F85B17CA32525C15353' # TODO: needed to clarify tax system of USA
+        xml.tax nil, 'id' => Spree::Openbravo::Config[:tax_rate_id]
         xml.priceLimit((2*self.listPrice.to_f/3).round(2))
         xml.lineNetAmount(self.orderedQuantity * self.unitPrice)
         xml.lineNo '1'

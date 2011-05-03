@@ -18,6 +18,11 @@
           options_for_select(@tax_categories, Spree::Openbravo::Config[:tax_category_id])) %>
   </p>
   <p>
+    <label><%= t('openbravo.tax_rate') %></label><br />
+    <%= select_tag('preferences[tax_rate_id]', 
+          options_for_select(@tax_rates, Spree::Openbravo::Config[:tax_rate_id])) %>
+  </p>
+  <p>
     <label><%= t('openbravo.price_list') %></label><br />
     <%= select_tag('preferences[price_list_id]', 
           options_for_select(@price_lists, Spree::Openbravo::Config[:price_list_id])) %>
